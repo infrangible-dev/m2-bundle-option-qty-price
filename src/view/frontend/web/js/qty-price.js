@@ -12,7 +12,7 @@ define([
 ], function ($, domReady, utils, selection) {
     'use strict';
 
-    var globalOptions = {
+    const globalOptions = {
         config: {},
         optionsSelector: '.product-custom-option',
         productBundleTriggerSelector: '.bundle-options-container',
@@ -26,27 +26,27 @@ define([
         },
 
         _init: function initBundle() {
-            var self = this;
+            const self = this;
 
             domReady(function() {
                 $(self.options.optionsSelector).on('product_option_changes', function(event, optionId, optionHash, option, optionsConfig, changes) {
-                    var optionChanges = changes[optionHash];
+                    const optionChanges = changes[optionHash];
 
                     if (optionChanges && ! $.isEmptyObject(optionChanges)) {
-                        var optionQtyPrice = self.options.config[optionId];
+                        const optionQtyPrice = self.options.config[optionId];
 
                         if (optionQtyPrice) {
-                            var selectedProductIds = selection.collectSelectedProductIds(
+                            const selectedProductIds = selection.collectSelectedProductIds(
                                 self.options.productBundleOptionContainerSelector ?
                                     self.options.productBundleOptionContainerSelector : self.element);
 
-                            var selectionQty = 0;
+                            let selectionQty = 0;
 
                             $.each(optionQtyPrice, function(bundleOptionId, bundleOptionData) {
                                 $.each(selectedProductIds, function(selectedBundleOptionId, selectedBundleOptionProductIds) {
                                     if (bundleOptionId === selectedBundleOptionId) {
                                         $.each(selectedBundleOptionProductIds, function(i, selectedBundleOptionProductId) {
-                                            var selectedBundleOptionProductQty = bundleOptionData[selectedBundleOptionProductId];
+                                            const selectedBundleOptionProductQty = bundleOptionData[selectedBundleOptionProductId];
 
                                             if (selectedBundleOptionProductQty) {
                                                 selectionQty += parseInt(selectedBundleOptionProductQty);
@@ -72,7 +72,7 @@ define([
 
                 $(self.options.productBundleTriggerSelector).on('bundle_option_changed', function(event, bundleOptionId) {
                     $.each(self.options.config, function(optionId, optionQtyPrice) {
-                        var bundleOptionQtyPrice = optionQtyPrice[bundleOptionId];
+                        const bundleOptionQtyPrice = optionQtyPrice[bundleOptionId];
 
                         if (bundleOptionQtyPrice) {
                             $(self.options.optionsSelector).each(function() {
